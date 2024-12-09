@@ -1,0 +1,142 @@
+/*Crear tabla 'teams'*/
+CREATE TABLE teams (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    tipo VARCHAR(50) NOT NULL
+);
+
+/*Crear tabla 'roles'*/
+CREATE TABLE roles (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    descripción TEXT
+);
+
+/*Crear tabla 'players'*/
+CREATE TABLE players (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    equipo_id INT REFERENCES teams(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    posición VARCHAR(50) NOT NULL
+);
+
+
+/* Crear función para verificar duplicados */
+CREATE OR REPLACE FUNCTION prevent_duplicate_players()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM players WHERE nombre = NEW.nombre AND equipo_id = NEW.equipo_id) THEN
+        RAISE EXCEPTION 'El jugador ya pertenece a este equipo';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+/* Crear trigger para aplicar la función */
+CREATE TRIGGER trg_prevent_duplicate_players
+BEFORE INSERT OR UPDATE ON players
+FOR EACH ROW
+EXECUTE FUNCTION prevent_duplicate_players();
+
+
+
+/* Crear tabla para registrar cambios */ 
+CREATE TABLE teams_log (
+    log_id SERIAL PRIMARY KEY,
+    equipo_id INT NOT NULL,
+    operación VARCHAR(50) NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+/* Crear función para registrar cambios */
+CREATE OR REPLACE FUNCTION log_team_changes()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO teams_log (equipo_id, operación)
+    VALUES (OLD.id, TG_OP);
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+/* Crear trigger para aplicar la función */
+CREATE TRIGGER trg_log_team_changes
+AFTER DELETE ON teams
+FOR EACH ROW
+EXECUTE FUNCTION log_team_changes();
+
+
+
+/* Crear tabla para registrar cambios */ 
+CREATE TABLE teams_log (
+    log_id SERIAL PRIMARY KEY,
+    equipo_id INT NOT NULL,
+    operación VARCHAR(50) NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+/* Crear función para registrar cambios */
+CREATE OR REPLACE FUNCTION log_team_changes()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO teams_log (equipo_id, operación)
+    VALUES (OLD.id, TG_OP);
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+/* Crear trigger para aplicar la función */
+CREATE TRIGGER trg_log_team_changes
+AFTER DELETE ON teams
+FOR EACH ROW
+EXECUTE FUNCTION log_team_changes();
+
+
+
+/* Crear tabla para registrar cambios */ 
+CREATE TABLE teams_log (
+    log_id SERIAL PRIMARY KEY,
+    equipo_id INT NOT NULL,
+    operación VARCHAR(50) NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+/* Crear función para registrar cambios */
+CREATE OR REPLACE FUNCTION log_team_changes()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO teams_log (equipo_id, operación)
+    VALUES (OLD.id, TG_OP);
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+/* Crear trigger para aplicar la función */
+CREATE TRIGGER trg_log_team_changes
+AFTER DELETE ON teams
+FOR EACH ROW
+EXECUTE FUNCTION log_team_changes();
+
+
+/* Crear tabla para registrar cambios */ 
+CREATE TABLE teams_log (
+    log_id SERIAL PRIMARY KEY,
+    equipo_id INT NOT NULL,
+    operación VARCHAR(50) NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+/* Crear función para registrar cambios */
+CREATE OR REPLACE FUNCTION log_team_changes()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO teams_log (equipo_id, operación)
+    VALUES (OLD.id, TG_OP);
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+/* Crear trigger para aplicar la función */
+CREATE TRIGGER trg_log_team_changes
+AFTER DELETE ON teams
+FOR EACH ROW
+EXECUTE FUNCTION log_team_changes();

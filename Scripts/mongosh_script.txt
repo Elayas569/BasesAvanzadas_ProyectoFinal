@@ -1,0 +1,132 @@
+// Connect to MongoDB and use the Ordinario database
+use Ordinario;
+
+// Drop the database if it exists (optional, for clean slate)
+db.dropDatabase();
+
+// Create the 'cards' collection and insert documents
+db.cards.insertMany([
+    {
+        _id: "C001",
+        jugador_id: "J003",
+        tipo: "amarilla",
+        motivo: "Conducta antideportiva",
+        partido_id: "M001"
+    },
+    {
+        _id: "C002",
+        jugador_id: "J004",
+        tipo: "roja",
+        motivo: "Falta grave",
+        partido_id: "M001"
+    },
+    {
+        _id: "C003",
+        jugador_id: "J007",
+        tipo: "amarilla",
+        motivo: "Retrasar el juego",
+        partido_id: "M002"
+    }
+]);
+
+// Create the 'fields' collection and insert documents
+db.fields.insertMany([
+    {
+        _id: "F001",
+        nombre: "Estadio Central",
+        ubicación: "Ciudad A",
+        capacidad: 20000
+    },
+    {
+        _id: "F002",
+        nombre: "Arena Norte",
+        ubicación: "Ciudad B",
+        capacidad: 15000
+    },
+    {
+        _id: "F003",
+        nombre: "Parque Deportivo Sur",
+        ubicación: "Ciudad C",
+        capacidad: 10000
+    }
+]);
+
+// Create the 'goals' collection and insert documents
+db.goals.insertMany([
+    {
+        _id: "G001",
+        jugador_id: "J001",
+        partido_id: "M001",
+        minuto: 15
+    },
+    {
+        _id: "G002",
+        jugador_id: "J002",
+        partido_id: "M001",
+        minuto: 43
+    },
+    {
+        _id: "G003",
+        jugador_id: "J005",
+        partido_id: "M002",
+        minuto: 22
+    },
+    {
+        _id: "G004",
+        jugador_id: "J006",
+        partido_id: "M002",
+        minuto: 78
+    }
+]);
+
+// Create the 'matches' collection and insert documents
+db.matches.insertMany([
+    {
+        _id: "M001",
+        equipo_1: "Venados",
+        equipo_2: "Cruz Azul",
+        fecha: new Date(1733356800000),
+        evento_1_gol_jugador_id: "J001",
+        evento_1_gol_minuto: 15,
+        evento_2_gol_jugador_id: "J002",
+        evento_2_gol_minuto: 43,
+        evento_1_tarjeta_jugador_id: "J003",
+        evento_1_tarjeta_tipo: "amarilla",
+        evento_1_tarjeta_motivo: "Conducta antideportiva",
+        evento_2_tarjeta_jugador_id: "J004",
+        evento_2_tarjeta_tipo: "roja",
+        evento_2_tarjeta_motivo: "Falta grave"
+    },
+    {
+        _id: "M002",
+        equipo_1: "Barcelona",
+        equipo_2: "Real Madrid",
+        fecha: new Date(1733378400000),
+        evento_1_gol_jugador_id: "J005",
+        evento_1_gol_minuto: 30,
+        evento_2_gol_jugador_id: "J006",
+        evento_2_gol_minuto: 60,
+        evento_1_tarjeta_jugador_id: "J007",
+        evento_1_tarjeta_tipo: "amarilla",
+        evento_1_tarjeta_motivo: "Protesta al árbitro",
+        evento_2_tarjeta_jugador_id: "J008",
+        evento_2_tarjeta_tipo: "roja",
+        evento_2_tarjeta_motivo: "Violencia sobre el rival"
+    },
+    {
+        _id: "M003",
+        equipo_1: "Juventus",
+        equipo_2: "AC Milan",
+        fecha: new Date(1733400000000),
+        evento_1_gol_jugador_id: "J009",
+        evento_1_gol_minuto: 22,
+        evento_2_gol_jugador_id: "J010",
+        evento_2_gol_minuto: 75,
+        evento_1_tarjeta_jugador_id: "J011",
+        evento_1_tarjeta_tipo: "roja",
+        evento_1_tarjeta_motivo: "Falta violenta",
+        evento_2_tarjeta_jugador_id: "J012",
+        evento_2_tarjeta_tipo: "amarilla",
+        evento_2_tarjeta_motivo: "Tardar en reanudar el juego"
+    }
+]);
